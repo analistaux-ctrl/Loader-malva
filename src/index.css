@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@keyframes luxury-draw-fill {
+  0% {
+    stroke-dashoffset: 100;
+    fill: transparent;
+  }
+  30% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+  }
+  50%, 80% {
+    stroke-dashoffset: 0;
+    fill: currentColor;
+  }
+  100% {
+    stroke-dashoffset: 100;
+    fill: transparent;
+  }
+}
+
+@keyframes luxury-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
