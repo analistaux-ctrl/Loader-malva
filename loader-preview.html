@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previsualización Loader Malva</title>
+    <style>
+        /* Estilos base para la página de prueba */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .test-content {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* --------------------------------------------------- */
+        /* CÓDIGO DEL LOADER (El mismo que va en Shopify)      */
+        /* --------------------------------------------------- */
+        .luxury-loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+        }
+
+        .luxury-loader-overlay.loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .luxury-loader-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .luxury-loader-svg-custom {
+            width: 121px;
+            height: auto;
+            animation: luxury-float 4s ease-in-out infinite;
+        }
+
+        .luxury-custom-path {
+            fill: transparent;
+            stroke: currentColor;
+            stroke-width: 0.5;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: luxury-draw-fill 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        /* Retrasos en la animación para cada trazo (Efecto cascada) */
+        .luxury-custom-path:nth-child(1) { animation-delay: 0.00s; }
+        .luxury-custom-path:nth-child(2) { animation-delay: 0.05s; }
+        .luxury-custom-path:nth-child(3) { animation-delay: 0.10s; }
+        .luxury-custom-path:nth-child(4) { animation-delay: 0.15s; }
+        .luxury-custom-path:nth-child(5) { animation-delay: 0.20s; }
+        .luxury-custom-path:nth-child(6) { animation-delay: 0.25s; }
+        .luxury-custom-path:nth-child(7) { animation-delay: 0.30s; }
+        .luxury-custom-path:nth-child(8) { animation-delay: 0.35s; }
+        .luxury-custom-path:nth-child(9) { animation-delay: 0.40s; }
+        .luxury-custom-path:nth-child(10) { animation-delay: 0.45s; }
+        .luxury-custom-path:nth-child(11) { animation-delay: 0.50s; }
+        .luxury-custom-path:nth-child(12) { animation-delay: 0.55s; }
+        .luxury-custom-path:nth-child(13) { animation-delay: 0.60s; }
+        .luxury-custom-path:nth-child(14) { animation-delay: 0.65s; }
+        .luxury-custom-path:nth-child(15) { animation-delay: 0.70s; }
+        .luxury-custom-path:nth-child(16) { animation-delay: 0.75s; }
+        .luxury-custom-path:nth-child(17) { animation-delay: 0.80s; }
+        .luxury-custom-path:nth-child(18) { animation-delay: 0.85s; }
+        .luxury-custom-path:nth-child(19) { animation-delay: 0.90s; }
+        .luxury-custom-path:nth-child(20) { animation-delay: 0.95s; }
+        .luxury-custom-path:nth-child(21) { animation-delay: 1.00s; }
+        .luxury-custom-path:nth-child(22) { animation-delay: 1.05s; }
+        .luxury-custom-path:nth-child(23) { animation-delay: 1.10s; }
+        .luxury-custom-path:nth-child(24) { animation-delay: 1.15s; }
+        .luxury-custom-path:nth-child(25) { animation-delay: 1.20s; }
+        .luxury-custom-path:nth-child(26) { animation-delay: 1.25s; }
+        .luxury-custom-path:nth-child(27) { animation-delay: 1.30s; }
+        .luxury-custom-path:nth-child(28) { animation-delay: 1.35s; }
+        .luxury-custom-path:nth-child(29) { animation-delay: 1.40s; }
+        .luxury-custom-path:nth-child(30) { animation-delay: 1.45s; }
+
+        @keyframes luxury-draw-fill {
+            0% { stroke-dashoffset: 100; fill: transparent; }
+            30% { stroke-dashoffset: 0; fill: transparent; }
+            50%, 80% { stroke-dashoffset: 0; fill: currentColor; }
+            100% { stroke-dashoffset: 100; fill: transparent; }
+        }
+
+        @keyframes luxury-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenido de prueba de la página -->
+    <div class="test-content">
+        <h1>Mi Tienda Shopify</h1>
+        <p>Esta es una página de prueba para ver el loader.</p>
+        <button onclick="mostrarLoader()">Mostrar Loader de nuevo</button>
+    </div>
+
+    <!-- --------------------------------------------------- -->
+    <!-- CÓDIGO DEL LOADER (El mismo que va en Shopify)      -->
+    <!-- --------------------------------------------------- -->
+    <div id="luxury-global-loader" class="luxury-loader-overlay">
+        <div class="luxury-loader-container">
+            <svg class="luxury-loader-svg-custom" width="121" height="58" viewBox="0 0 121 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="luxury-custom-path" pathLength="100" d="M13.6252 53.75H15.0002C16.2503 53.75 17.1878 54.5625 17.1878 55.875C17.1878 57.0625 16.3753 57.9375 15.1877 57.9375H13.6252V53.75ZM14.1877 54V57.6875H15.1252C15.9377 57.6875 16.5628 57 16.5628 55.875C16.5628 54.6875 15.8752 54 15.0002 54H14.1877Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M19.9994 53.75H22.9369V54H20.5619V55.6875H22.7494V55.9375H20.5619V57.75H22.9994V58H19.9994V53.75Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M25.8143 53.75H27.1893C28.1268 53.75 28.7518 54.25 28.7518 55C28.7518 55.75 28.1268 56.25 27.1893 56.25H26.3768V58H25.7518L25.8143 53.75ZM26.4393 54V56H27.0643C27.6893 56 28.1893 55.625 28.1893 55C28.1893 54.375 27.7518 54 27.0643 54H26.4393Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M33.6267 56.6875H31.6267L31.0642 57.9375H30.7517L32.5642 53.75H32.8767L34.8142 57.9375H34.1267L33.6267 56.6875ZM31.7517 56.4375H33.5642L32.6267 54.4375L31.7517 56.4375Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M37.4992 53.75H38.9367C39.8742 53.75 40.4992 54.1875 40.4992 54.9375C40.4992 55.5625 40.1242 55.9375 39.4367 56.0625L40.6867 57.9375H40.0617L38.8117 56.0625H38.0617V57.9375H37.4367L37.4992 53.75ZM38.0617 54V55.875H38.7492C39.3742 55.875 39.8117 55.5625 39.8117 54.9375C39.8117 54.3125 39.3742 54 38.7492 54H38.0617Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M42.751 53.75H46.4385V54H44.876V57.9375H44.251V54H42.6885L42.751 53.75Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M51.2505 57.125L52.813 53.75H53.438V57.9375H52.813V54.375L51.313 57.75H50.938L49.2504 54.375V57.9375H49.0004V53.75H49.6254L51.2505 57.125Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M56.438 53.75H59.3756V54H57.0005V55.6875H59.1881V55.9375H57.0005V57.75H59.4381V58H56.438V53.75Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M62.4994 57.9375H62.2494V53.75H62.4994L65.4994 57.0625V53.75H65.7494V57.9375H65.4994L62.4994 54.625V57.9375Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M68.313 53.75H72.0005V54H70.438V57.9375H69.813V54H68.2505C68.313 54 68.313 53.75 68.313 53.75Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M79.7522 55.625C80.6272 56 81.0647 56.25 81.0647 56.9375C81.0647 57.625 80.5647 58 79.5647 58C78.5022 58 77.8772 57.5625 77.8772 56.6875H78.5022C78.5022 57.3125 78.8772 57.75 79.6272 57.75C80.1272 57.75 80.5022 57.5625 80.5022 57.0625C80.5022 56.625 80.1897 56.4375 79.2522 56.0625C78.5022 55.6875 78.0022 55.5 78.0022 54.8125C78.0022 54.125 78.4397 53.75 79.4397 53.75C80.4397 53.75 81.0022 54.1875 81.0022 54.9375H80.3772C80.3772 54.375 80.0647 54 79.4397 54C78.8772 54 78.5646 54.25 78.5646 54.6875C78.5646 55.125 78.9397 55.3125 79.7522 55.625Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M83.3125 53.75H87.0001V54H85.4375V57.9375H84.8125V54H83.25L83.3125 53.75Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M91.2518 53.75C92.5018 53.75 93.3768 54.625 93.3768 55.875C93.3768 57.125 92.5018 58 91.2518 58C90.0018 58 89.1268 57.0625 89.1268 55.875C89.1268 54.6875 90.0643 53.75 91.2518 53.75ZM91.2518 57.75C92.1268 57.75 92.7518 56.9375 92.7518 55.8125C92.7518 54.6875 92.1268 53.875 91.2518 53.875C90.3768 53.875 89.7518 54.6875 89.7518 55.8125C89.7518 57 90.4393 57.75 91.2518 57.75Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M97.6259 53.75C98.5634 53.75 99.1884 54.1875 99.1884 54.9375C99.1884 55.5625 98.8134 55.9375 98.1259 56.0625L99.376 57.9375H98.7509L97.5009 56.0625H96.7509V57.9375H96.1259V53.75H97.6259ZM96.8134 54V55.875H97.5009C98.1259 55.875 98.5634 55.5625 98.5634 54.9375C98.5634 54.3125 98.1259 54 97.5009 54H96.8134Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M102.127 53.75H105.065V54H102.69V55.6875H104.877V55.9375H102.69V57.75H105.127V58H102.127V53.75Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M19.1251 26.3749V39.5L20.8752 40.8125V41.3125H13.1251V40.8125L14.8751 39.5V27.3124L9.12507 37.875H8.37507L2.31252 27.3124V39.5L4.06253 40.8125V41.3125H0V40.8125L1.75001 39.5625V26.5624L0 25.0624V24.5624H5.87505L10.9376 33.25L15.6251 24.5624H20.8752V25.0624L19.1251 26.3749Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M48.2489 40.875V41.375H40.5613V40.875L41.9364 39.4375L40.3738 36.3125H33.3113L31.8738 39.5625L33.8738 40.8125V41.3125H29.4363V40.8125L31.2488 39.5625L37.8738 24.5624H38.9988L46.7489 39.3125L48.2489 40.875ZM40.1238 35.8125L36.6863 29.0624H36.5613L33.5613 35.8125H40.1238Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M71.8766 35.3125V41.3125H56.8765V40.8125L58.689 39.5V26.3749L56.8765 25.0624V24.5624H64.7516V25.0624L62.939 26.3749V40.8125H67.2516L71.3141 35.3125C71.3766 35.3125 71.8766 35.3125 71.8766 35.3125Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M96.7503 25.0624L95.0003 26.3124L88.5003 41.3125H87.3753L79.6877 26.5624L78.2502 25.0624V24.5624H85.8752V25.0624L84.5002 26.4374L89.7503 36.8125H89.8753L94.4378 26.3124L92.4378 25.0624V24.5624H96.8128L96.7503 25.0624Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M120.377 40.875V41.375H112.689V40.875L114.064 39.4375L112.502 36.3125H105.439L104.002 39.5625L106.002 40.8125V41.3125H101.564V40.8125L103.377 39.5625L110.002 24.5624H111.127L118.877 39.3125L120.377 40.875ZM112.252 35.8125L108.814 29.0624H108.627L105.627 35.8125H112.252Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M32.0004 8.8136H31.0004V9.4386H32.7504V9.9386H30.3754V7.25108H32.6254V7.75109H30.9379V8.25109H31.9379V8.8136H32.0004Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M36.7516 7.93827C36.5641 7.81327 36.2516 7.62577 35.814 7.62577C35.564 7.62577 35.314 7.75077 35.314 7.93827C35.314 8.18827 35.689 8.18827 36.0015 8.25077C36.5016 8.31327 37.2516 8.31327 37.2516 9.06328C37.2516 9.75079 36.6891 10.0008 36.0015 10.0008C35.314 10.0008 34.814 9.75079 34.5015 9.43828L34.814 9.00078C35.064 9.18828 35.439 9.43828 36.0015 9.43828C36.3766 9.43828 36.6266 9.31328 36.6266 9.06328C36.6266 8.81328 36.3766 8.75078 35.9391 8.68828C35.314 8.62578 34.6265 8.56328 34.6265 7.87577C34.6265 7.18827 35.2515 7.00076 35.7515 7.00076C36.3141 7.00076 36.8141 7.18826 37.0016 7.37577L36.7516 7.93827Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M41.6258 7.25108V7.75109H40.6258V9.9386H40.0008V7.75109H39.0007V7.25108H41.6258Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M43.3743 9.31254C43.6243 9.31254 43.7493 9.50004 43.7493 9.68754C43.7493 9.87504 43.5618 10.0625 43.3743 10.0625C43.1868 10.0625 42.9993 9.93754 42.9993 9.68754C42.9993 9.50004 43.1243 9.31254 43.3743 9.31254Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M81.7514 9.56195C81.7514 8.99945 82.2514 8.68695 82.8139 8.56195C82.9389 8.49945 83.2514 8.43695 83.2514 8.24944C83.2514 8.06194 83.0639 7.99944 82.8764 7.99944C82.5639 7.99944 82.3139 8.18694 82.0639 8.37444L81.7514 7.99944C82.0639 7.74944 82.3764 7.56194 82.8764 7.56194C83.3764 7.56194 83.8764 7.74944 83.8764 8.24944C83.8764 8.81195 83.3139 8.93695 82.9389 9.06195C82.5639 9.18695 82.3764 9.31195 82.3764 9.49945H83.8139V9.93696H81.7514V9.56195Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M86.5651 7.49977C87.2526 7.49977 87.8776 8.06227 87.8776 8.74978C87.8776 9.43728 87.2526 9.99979 86.5651 9.99979C85.8776 9.99979 85.2526 9.43728 85.2526 8.74978C85.3151 8.06227 85.8776 7.49977 86.5651 7.49977ZM86.5651 9.56228C86.9401 9.56228 87.3151 9.18728 87.3151 8.81228C87.3151 8.37477 87.0026 8.06227 86.5651 8.06227C86.1276 8.06227 85.8151 8.43727 85.8151 8.81228C85.8776 9.18728 86.1901 9.56228 86.5651 9.56228Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M89.2511 7.93661L90.0011 7.62411H90.5012V9.93663H89.9387V8.12411L89.3761 8.37411L89.2511 7.93661Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M92.5024 9.43728C92.6899 9.49978 92.9399 9.56228 93.1274 9.56228C93.5649 9.56228 93.9399 9.31228 94.0024 8.81228C93.7524 8.99978 93.5024 9.12478 93.1274 9.12478C92.5024 9.12478 92.1274 8.74978 92.1274 8.37477C92.1274 7.87477 92.5649 7.49977 93.2524 7.49977C93.9399 7.49977 94.5649 7.93727 94.5649 8.68728C94.5649 9.49978 93.8774 9.99979 93.1899 9.99979C92.7524 9.99979 92.4399 9.87478 92.2524 9.81228L92.5024 9.43728ZM93.9399 8.49977C93.8149 8.18727 93.5649 7.99977 93.1899 7.99977C92.8774 7.99977 92.6274 8.18727 92.6274 8.37477C92.6274 8.49977 92.7524 8.68728 93.1274 8.68728C93.4399 8.74978 93.7524 8.62477 93.9399 8.49977Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M66.4995 3.68753C66.4995 1.62501 64.812 0 62.812 0C60.7495 0 59.1245 1.68751 59.1245 3.68753C59.1245 3.75003 59.1245 3.87503 59.1245 3.93753V11.9376H66.4995V3.93753C66.4995 3.81253 66.4995 3.75003 66.4995 3.68753Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M76.6268 3.68753C76.6268 1.62501 74.9393 0 72.9393 0C70.8768 0 69.2518 1.68751 69.2518 3.68753C69.2518 3.75003 69.2518 3.87503 69.2518 3.93753V11.9376H76.6268V3.93753C76.6268 3.81253 76.6268 3.75003 76.6268 3.68753Z" />
+                <path class="luxury-custom-path" pathLength="100" d="M56.3758 3.68753C56.3758 1.62501 54.6883 0 52.6883 0C50.6883 0 48.9383 1.62501 48.9383 3.68753C48.9383 3.75003 48.9383 3.87503 48.9383 3.93753V11.9376H56.3133V3.93753C56.3758 3.81253 56.3758 3.75003 56.3758 3.68753Z" />
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // Script para ocultar el loader a los 3 segundos (simulando carga)
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.getElementById("luxury-global-loader").classList.add("loader-hidden");
+            }, 3500);
+        });
+
+        // Función para el botón de prueba
+        function mostrarLoader() {
+            var loader = document.getElementById("luxury-global-loader");
+            loader.classList.remove("loader-hidden");
+            
+            // Ocultarlo de nuevo después de 3.5 segundos
+            setTimeout(function() {
+                loader.classList.add("loader-hidden");
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
